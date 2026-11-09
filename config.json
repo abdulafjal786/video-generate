@@ -1,0 +1,46 @@
+{
+  "voice": {
+    "backend": "auto",
+    "voicestudio_url": "http://127.0.0.1:3900",
+    "voicestudio_api_key": "",
+    "model": "omnivoice",
+    "voice": "alloy",
+    "language": "",
+    "instructions": "",
+    "speed": 1.0,
+    "edge_voice": "en-US-GuyNeural",
+    "sapi_voice": ""
+  },
+  "llm": {
+    "backend": "auto",
+    "ollama_url": "http://127.0.0.1:11434",
+    "ollama_model": "",
+    "base_url": "",
+    "api_key": "",
+    "model": ""
+  },
+  "stt": {
+    "backend": "auto",
+    "whisper_model": "small",
+    "api_key": "",
+    "base_url": "",
+    "model": ""
+  },
+  "video": {
+    "style": "b1-notebook",
+    "ratio": "16:9",
+    "seconds": 45,
+    "language": "English",
+    "fps": 30,
+    "crf": 20,
+    "preset": "veryfast",
+    "captions": true,
+    "sfx_volume": 0.6,
+    "music": "",
+    "music_volume": 0.08
+  },
+  "web": {
+    "host": "127.0.0.1",
+    "port": 7860
+  }
+}

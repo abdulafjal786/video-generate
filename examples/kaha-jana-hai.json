@@ -1,0 +1,235 @@
+{
+  "title": "Kaha Jana Hai",
+  "style": "c1-toon",
+  "ratio": "9:16",
+  "voice": {
+    "backend": "edge"
+  },
+  "voices": {
+    "main": {
+      "edge_voice": "hi-IN-MadhurNeural",
+      "pitch": "-6Hz",
+      "speed": 1.0
+    },
+    "friend": {
+      "edge_voice": "hi-IN-MadhurNeural",
+      "pitch": "+24Hz",
+      "speed": 1.08
+    },
+    "narrator": {
+      "edge_voice": "hi-IN-SwaraNeural",
+      "speed": 1.05
+    }
+  },
+  "scenes": [
+    {
+      "action": "ride",
+      "mood": "happy",
+      "setting": "park",
+      "camera": "zoom_in",
+      "props": [],
+      "headline": "Boys Taking Decision Be Like :",
+      "friend": {
+        "action": "nod",
+        "mood": "happy"
+      },
+      "voices": {
+        "main": {
+          "pitch": "-6Hz",
+          "speed": 1.0
+        },
+        "friend": {
+          "pitch": "+24Hz",
+          "speed": 1.08
+        },
+        "narrator": {
+          "pitch": "+0Hz",
+          "speed": 1.05
+        }
+      },
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "दो दोस्त, एक बाइक, और कोई प्लान नहीं।"
+        },
+        {
+          "who": "friend",
+          "text": "भाई, कहाँ चलना है?",
+          "mood": "neutral"
+        },
+        {
+          "who": "main",
+          "text": "तुम बताओ।",
+          "mood": "neutral"
+        }
+      ]
+    },
+    {
+      "action": "ride",
+      "mood": "neutral",
+      "setting": "city",
+      "camera": "punch",
+      "props": [],
+      "headline": "नहीं, तुम बताओ!",
+      "friend": {
+        "action": "nod",
+        "mood": "neutral"
+      },
+      "voices": {
+        "main": {
+          "pitch": "-4Hz",
+          "speed": 1.12
+        },
+        "friend": {
+          "pitch": "+28Hz",
+          "speed": 1.15
+        },
+        "narrator": {
+          "pitch": "+0Hz",
+          "speed": 1.05
+        }
+      },
+      "lines": [
+        {
+          "who": "friend",
+          "text": "नहीं, तुम बताओ!",
+          "mood": "surprised"
+        },
+        {
+          "who": "main",
+          "text": "अरे, मैंने पहले पूछा था। तुम बताओ!",
+          "mood": "angry"
+        },
+        {
+          "who": "friend",
+          "text": "मैं पीछे बैठा हूँ, बाइक तुम चला रहे हो। तुम बताओ!",
+          "mood": "angry"
+        }
+      ]
+    },
+    {
+      "action": "ride",
+      "mood": "worried",
+      "setting": "night",
+      "camera": "zoom_out",
+      "props": [],
+      "headline": "1 घंटे बाद...",
+      "friend": {
+        "action": "nod",
+        "mood": "sad"
+      },
+      "voices": {
+        "main": {
+          "pitch": "-8Hz",
+          "speed": 0.95
+        },
+        "friend": {
+          "pitch": "+22Hz",
+          "speed": 1.0
+        },
+        "narrator": {
+          "pitch": "-2Hz",
+          "speed": 0.95
+        }
+      },
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "एक घंटे बाद..."
+        },
+        {
+          "who": "main",
+          "text": "भाई, पेट्रोल खत्म होने वाला है।",
+          "mood": "worried"
+        },
+        {
+          "who": "friend",
+          "text": "तो अब तो बता दो, जाना कहाँ है?",
+          "mood": "worried"
+        }
+      ]
+    },
+    {
+      "action": "talk",
+      "mood": "sad",
+      "setting": "night",
+      "camera": "punch",
+      "props": [
+        "warning"
+      ],
+      "headline": "पेट्रोल खत्म!",
+      "friend": {
+        "action": "stand",
+        "mood": "sad"
+      },
+      "voices": {
+        "main": {
+          "pitch": "-10Hz",
+          "speed": 0.9
+        },
+        "friend": {
+          "pitch": "+20Hz",
+          "speed": 0.95
+        },
+        "narrator": {
+          "pitch": "+0Hz",
+          "speed": 1.0
+        }
+      },
+      "lines": [
+        {
+          "who": "main",
+          "text": "घर चलते हैं।",
+          "action": "shrug",
+          "mood": "sad",
+          "other": {
+            "action": "stand",
+            "mood": "surprised"
+          }
+        },
+        {
+          "who": "friend",
+          "text": "हाँ भाई, वही ठीक है।",
+          "action": "facepalm",
+          "mood": "sad",
+          "other": {
+            "action": "facepalm",
+            "mood": "sad"
+          }
+        }
+      ]
+    },
+    {
+      "action": "wave",
+      "mood": "happy",
+      "setting": "night",
+      "camera": "static",
+      "props": [],
+      "headline": "Tag Your Friend",
+      "friend": {
+        "action": "wave",
+        "mood": "happy"
+      },
+      "voices": {
+        "main": {
+          "pitch": "-6Hz",
+          "speed": 1.0
+        },
+        "friend": {
+          "pitch": "+24Hz",
+          "speed": 1.08
+        },
+        "narrator": {
+          "pitch": "+2Hz",
+          "speed": 1.05
+        }
+      },
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "टैग करो उस दोस्त को, जो कभी नहीं बताता कहाँ जाना है!"
+        }
+      ]
+    }
+  ]
+}

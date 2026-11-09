@@ -1,0 +1,18 @@
+{
+  "title": "Pay yourself first",
+  "style": "story",
+  "ratio": "16:9",
+  "scenes": [
+    {"narration": "Hey! Have you ever wondered why your money disappears so fast?", "action": "wave", "mood": "happy",
+     "setting": "city", "props": ["money"], "headline": "WHERE DID IT GO?", "enter": "left", "camera": "zoom_in"},
+    {"narration": "My friend thought saving was impossible. Then he found one simple idea.", "action": "talk",
+     "setting": "room", "props": ["bulb"], "headline": "", "camera": "static", "friend": {"action": "facepalm", "mood": "sad"}},
+    {"narration": "Pay yourself first. Put a little aside on day one, every single month.", "action": "idea",
+     "setting": "park", "props": ["calendar", "coin"], "headline": "PAY YOURSELF FIRST", "camera": "punch"},
+    {"narration": "Small amounts grow quietly, and the habit grows with them.", "action": "present",
+     "setting": "office", "props": ["plant", "chart"], "headline": "SMALL STEPS", "camera": "pan_right"},
+    {"narration": "A year later, he was celebrating! What would you save for? Tell me in the comments.",
+     "action": "cheer", "setting": "night", "props": ["trophy"], "headline": "YOU CAN DO IT",
+     "camera": "zoom_out", "friend": {"action": "dance", "mood": "happy"}}
+  ]
+}

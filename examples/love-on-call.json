@@ -1,0 +1,55 @@
+{
+  "title": "Babu On Call",
+  "style": "c1-toon",
+  "ratio": "9:16",
+  "voice": {"backend": "edge"},
+  "voices": {
+    "main": {"edge_voice": "hi-IN-SwaraNeural", "pitch": "+50Hz", "speed": 1.1},
+    "friend": {"edge_voice": "hi-IN-SwaraNeural", "pitch": "+4Hz", "speed": 1.05}
+  },
+  "scenes": [
+    {
+      "layout": "call", "action": "talk", "mood": "happy", "setting": "room", "camera": "static", "props": [], "headline": "", "enter": "none",
+      "friend": {"action": "stand", "mood": "angry"},
+      "lines": [
+        {"who": "main", "text": "हैलो बाबू!", "mood": "happy"},
+        {"who": "friend", "text": "क्या हुआ?!", "mood": "angry", "pitch": "+30Hz", "speed": 1.15, "gain": 1.4, "other": {"mood": "surprised"}},
+        {"who": "main", "text": "क्या हुआ? इतना क्यों चिल्ला रही हो?", "mood": "worried"},
+        {"who": "friend", "text": "कॉल क्यों किया?", "mood": "angry", "pitch": "+16Hz", "speed": 1.1, "gain": 1.2},
+        {"who": "main", "text": "बात करने के लिए।", "mood": "neutral"},
+        {"who": "friend", "text": "मूड नहीं है।", "mood": "angry"},
+        {"who": "main", "text": "क्या हुआ? कोई कुछ बोला है क्या?", "mood": "worried"},
+        {"who": "friend", "text": "बोल रही हूँ ना, कुछ नहीं हुआ है! फोन रखो!", "mood": "angry", "pitch": "+30Hz", "speed": 1.15, "gain": 1.4}
+      ]
+    },
+    {
+      "layout": "call", "action": "talk", "mood": "happy", "setting": "room", "camera": "static", "props": [], "headline": "", "enter": "none",
+      "friend": {"action": "stand", "mood": "angry"},
+      "lines": [
+        {"who": "main", "text": "ओये...", "mood": "happy", "pitch": "+40Hz", "speed": 0.95, "gain": 0.8},
+        {"who": "friend", "text": "क्या हुआ?! क्या बात है, बोलो, वरना फोन रखो!", "mood": "angry", "pitch": "+30Hz", "speed": 1.15, "gain": 1.4, "other": {"mood": "worried"}},
+        {"who": "main", "text": "ज़्यादा गुस्सा हो रही है। मम्मी ने मारा है क्या?", "mood": "happy"},
+        {"who": "friend", "text": "बहुत बोल रहा है! फोन रख दे, वरना तेरा मुँह तोड़ दूँगी!", "mood": "angry", "pitch": "+34Hz", "speed": 1.15, "gain": 1.5, "other": {"mood": "worried"}}
+      ]
+    },
+    {
+      "layout": "call", "action": "talk", "mood": "worried", "setting": "room", "camera": "zoom_in", "props": [], "headline": "", "enter": "none",
+      "friend": {"action": "stand", "mood": "angry"},
+      "lines": [
+        {"who": "main", "text": "अच्छा, अच्छा... सुनो बाबू।", "mood": "happy", "pitch": "+40Hz", "speed": 0.98, "gain": 0.85},
+        {"who": "friend", "text": "बोलो।", "mood": "angry"},
+        {"who": "main", "text": "पहले प्यार से बात करो।", "mood": "happy", "speed": 1.0},
+        {"who": "friend", "text": "ठीक है, अब बोलो।", "mood": "neutral", "speed": 0.98},
+        {"who": "main", "text": "आई लव यू!", "mood": "laugh", "speed": 1.0, "hearts": true}
+      ]
+    },
+    {
+      "layout": "call", "action": "talk", "mood": "happy", "setting": "room", "camera": "punch", "props": [], "headline": "", "enter": "none", "call_end": true,
+      "friend": {"action": "stand", "mood": "surprised"},
+      "lines": [
+        {"who": "friend", "text": "हैं! ये क्या था? मम्मी सुन रही है, कॉल स्पीकर पर है!", "mood": "surprised", "pitch": "+24Hz", "speed": 1.15, "gain": 1.3, "other": {"mood": "worried"}},
+        {"who": "main", "text": "क्या?! मम्मी?!", "action": "surprised", "mood": "surprised", "pitch": "+90Hz", "speed": 1.25, "gain": 1.6}
+      ]
+    }
+  ]
+}

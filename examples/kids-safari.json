@@ -1,0 +1,48 @@
+{
+  "title": "First Safari",
+  "style": "a2-story",
+  "ratio": "9:16",
+  "captions": false,
+  "voice": {"backend": "edge"},
+  "voices": {
+    "main": {"edge_voice": "en-KE-ChilembaNeural", "speed": 1.0},
+    "friend": {"edge_voice": "en-US-AnaNeural", "pitch": "+6Hz", "speed": 1.05}
+  },
+  "clip_style": "Colorful cinematic 3D cartoon animation, funny family-friendly comedy, expressive characters with exaggerated facial expressions, adorable realistic-inspired animals, beautiful African savanna, warm golden lighting, smooth cinematic camera movement, joyful magical atmosphere. Same characters in every shot: four ethnically diverse 5-year-old children (a Black girl with curly puffs in a yellow safari shirt, an East Asian boy with round glasses in a green shirt, a red-haired white girl with freckles in an orange shirt, a South Asian boy with short black hair in a light-blue shirt; all in khaki shorts and beige safari hats) and a cheerful Kenyan safari guide in a khaki uniform and wide-brim hat, riding an open-top bright green safari jeep with yellow stripes.",
+  "clip_negative": "text, letters, logos, watermark, subtitles, scary imagery, animal attack, danger, blood, realistic photo, dark lighting",
+  "scenes": [
+    {
+      "action": "jump", "mood": "happy", "setting": "park", "camera": "zoom_in", "props": [], "headline": "",
+      "friend": {"action": "cheer", "mood": "happy"}, "duration": 3,
+      "clip_prompt": "The excited children jump into the green safari jeep next to the guide. The girl in the yellow shirt holds binoculars backwards to her eyes, points proudly and shouts; the other children and the guide burst out laughing. Medium shot, slight push-in.",
+      "lines": [
+        {"who": "friend", "name": "The girl in the yellow shirt", "text": "I found a lion!", "mood": "happy"},
+        {"who": "main", "name": "The safari guide", "text": "Other way, little explorer!", "mood": "happy"}
+      ]
+    },
+    {
+      "action": "ride", "mood": "happy", "setting": "park", "camera": "pan_right", "props": [], "headline": "",
+      "friend": {"action": "nod", "mood": "surprised"}, "duration": 4,
+      "clip_prompt": "The jeep drives across the golden savanna. A sleepy cartoon lion yawns lazily under an acacia tree, then a curious giraffe lowers its long neck and sticks its head right next to the jeep. The children giggle in amazement, eyes wide. Smooth tracking shot.",
+      "lines": [
+        {"who": "friend", "name": "The red-haired girl", "text": "Look! The giraffe says hello!", "mood": "surprised"}
+      ]
+    },
+    {
+      "action": "surprised", "mood": "surprised", "setting": "beach", "camera": "punch", "props": [], "headline": "",
+      "friend": {"action": "cheer", "mood": "happy"}, "duration": 4,
+      "clip_prompt": "By a watering hole, a playful baby elephant sprays water from its trunk and accidentally soaks the safari guide, who stands dripping with a funny shocked face. The children burst into laughter. A herd of zebras runs past and colorful birds fly overhead. Quick, lively camera.",
+      "lines": [
+        {"who": "main", "name": "The soaked safari guide", "text": "Hey! Who turned on the elephant?", "mood": "surprised"}
+      ]
+    },
+    {
+      "action": "ride", "mood": "happy", "setting": "beach", "camera": "zoom_out", "props": [], "headline": "",
+      "friend": {"action": "nod", "mood": "surprised"}, "duration": 4,
+      "clip_prompt": "The children sit in the jeep watching a beautiful orange African sunset. A cheeky monkey suddenly swings down, grabs the safari hat of the boy in the green shirt and runs off with it. Everyone laughs as the jeep drives off into the sunset. Wide shot, slow pull-back.",
+      "lines": [
+        {"who": "friend", "name": "The boy in the green shirt", "text": "Hey, monkey! That's my hat!", "mood": "surprised"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StickVoice Studio</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1d1c1a; --muted: #6d6a63; --line: #e4e1d8;
+    --accent: #e23e48; --accent-2: #2678d6; --ok: #2f9e5b; --warn: #c9861a; --radius: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151514; --panel: #1f1e1c; --ink: #f1efe9; --muted: #a29e95; --line: #34322e; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; align-items: baseline; gap: 14px; padding: 18px 24px 8px; flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+  header h1 span { color: var(--accent); }
+  header p { margin: 0; color: var(--muted); }
+  main { display: grid; grid-template-columns: 380px 1fr; gap: 18px; padding: 10px 24px 40px; }
+  @media (max-width: 960px) { main { grid-template-columns: 1fr; padding: 10px 16px 40px; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .panel + .panel { margin-top: 14px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; }
+  label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
+  textarea, input, select { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+  textarea { resize: vertical; }
+  #prompt { min-height: 140px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  button { font: inherit; font-weight: 600; border: 0; border-radius: 9px; padding: 10px 14px; cursor: pointer; background: var(--ink); color: var(--panel); }
+  button.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  button.primary { background: var(--accent); color: #fff; }
+  button:disabled { opacity: .5; cursor: progress; }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .check { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--ink); font-size: 13px; }
+  .check input { width: auto; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 3px 9px; border-radius: 99px; border: 1px solid var(--line); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+  .dot.on { background: var(--ok); }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .scenes-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .scene { border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-top: 10px; background: var(--bg); }
+  .scene-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .scene-top b { font-size: 13px; }
+  .scene-top .sp { flex: 1; }
+  .icon { background: transparent; color: var(--muted); border: 1px solid var(--line); padding: 3px 8px; font-weight: 500; border-radius: 6px; }
+  .scene textarea { min-height: 54px; background: var(--panel); }
+  .scene select, .scene input { background: var(--panel); padding: 6px 8px; font-size: 13px; }
+  .grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  @media (max-width: 700px) { .grid5 { grid-template-columns: repeat(2, 1fr); } }
+  .scene label { margin-top: 6px; }
+  .empty { color: var(--muted); padding: 30px 10px; text-align: center; border: 1px dashed var(--line); border-radius: 10px; margin-top: 10px; }
+  .bar { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; margin-top: 12px; }
+  .bar > div { height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+  #status { margin-top: 6px; color: var(--muted); font-size: 13px; }
+  video { width: 100%; max-height: 70vh; border-radius: 10px; background: #000; margin-top: 12px; display: none; }
+  pre#log { white-space: pre-wrap; font-size: 11px; color: var(--muted); max-height: 160px; overflow: auto; margin: 10px 0 0; }
+  .tabs { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 3px; margin-bottom: 10px; }
+  .tabs button { flex: 1; background: transparent; color: var(--muted); padding: 7px 10px; font-weight: 600; }
+  .tabs button.on { background: var(--panel); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .drop { border: 1.5px dashed var(--line); border-radius: 10px; padding: 16px; text-align: center; color: var(--muted); cursor: pointer; }
+  .drop.over { border-color: var(--accent); color: var(--ink); }
+  .drop input { display: none; }
+  audio { width: 100%; margin-top: 8px; }
+  .banner { margin-top: 10px; padding: 9px 12px; border-radius: 9px; background: color-mix(in srgb, var(--accent-2) 12%, transparent); font-size: 13px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .banner button { padding: 4px 10px; font-size: 12px; }
+  .time { color: var(--muted); font-size: 12px; font-weight: 500; }
+  .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 6px; max-height: 420px; overflow: auto; padding-right: 2px; }
+  .gallery h3 { grid-column: 1 / -1; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 6px 0 0; }
+  .card { border: 2px solid transparent; border-radius: 9px; overflow: hidden; cursor: pointer; background: var(--bg); text-align: left; padding: 0; color: var(--ink); font-weight: 500; }
+  .card img { width: 100%; aspect-ratio: 16/9; display: block; background: var(--line); }
+  .card span { display: block; font-size: 11.5px; padding: 4px 6px 5px; line-height: 1.25; }
+  .card.on { border-color: var(--accent); }
+  #styleAbout { margin-top: 6px; }
+  #directorBox { display: none; }
+  #directorText { min-height: 260px; font: 12px/1.45 ui-monospace, Consolas, monospace; }
+  .links a { color: var(--accent-2); margin-right: 14px; font-size: 13px; }
+  #history a { display: block; color: var(--accent-2); font-size: 13px; padding: 3px 0; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Stick<span>Voice</span> Studio</h1>
+  <p>Type a prompt or drop your own audio → get a narrated stickman animation. Voices by VoiceStudio, styles from Stickman Video Director. <a href="/voicelab">Voice Lab</a></p>
+</header>
+<main>
+  <section>
+    <div class="panel">
+      <h2>1 · Start from</h2>
+      <div class="tabs"><button id="tabPrompt" class="on">Prompt / script</button><button id="tabAudio">My audio</button></div>
+      <div id="paneAudio" style="display:none">
+        <label class="drop" id="drop">
+          <input type="file" id="audioFile" accept="audio/*,video/*">
+          <b>Drop your voice recording here</b><br>or click to choose (mp3, wav, m4a, ogg, mp4…)
+        </label>
+        <audio id="audioPrev" controls style="display:none"></audio>
+        <label>What is said (optional, leave empty to auto-transcribe)</label>
+        <textarea id="transcript" rows="4" placeholder="Paste the exact words here if you have them. Otherwise VoiceStudio / Whisper writes them for you."></textarea>
+        <label>Creative direction for the visuals (optional)</label>
+        <input id="direction" placeholder="e.g. funny, cooking theme, kids story">
+      </div>
+      <div id="panePrompt">
+      <textarea id="prompt" placeholder="A topic (e.g. 'Why do cats purr?') or a full script you want narrated..."></textarea>
+      </div>
+      <div class="row">
+        <div><label>Style</label><select id="style"></select></div>
+        <div><label>Shape</label>
+          <select id="ratio"><option value="16:9">16:9 YouTube</option><option value="9:16">9:16 Shorts / Reels</option><option value="1:1">1:1 Square</option></select></div>
+      </div>
+      <div class="row">
+        <div><label>Length (seconds)</label><input id="seconds" type="number" min="10" max="600" step="5"></div>
+        <div><label>Narration language</label><input id="language"></div>
+      </div>
+      <label>Style gallery</label>
+      <div class="gallery" id="gallery"></div>
+      <div class="hint" id="styleAbout"></div>
+      <label class="check"><input type="checkbox" id="use_llm" checked> Use AI script writer (Ollama / API key) if available</label>
+      <div class="btns"><button id="btnPlan">Write script</button></div>
+      <div class="hint" id="planInfo"></div>
+    </div>
+
+    <div class="panel">
+      <h2>2 · Voice</h2>
+      <div><span class="pill"><span class="dot" id="vsDot"></span><span id="vsText">Checking VoiceStudio…</span></span></div>
+      <label>Voice engine</label>
+      <select id="vBackend">
+        <option value="auto">Auto (VoiceStudio → Edge → Windows → silent)</option>
+        <option value="voicestudio">VoiceStudio (local, best)</option>
+        <option value="edge">Edge neural voices (online, free)</option>
+        <option value="sapi">Windows built-in voices (offline)</option>
+        <option value="silent">No voice (animation test)</option>
+      </select>
+      <div id="vsBox">
+        <label>VoiceStudio voice / cloned profile</label>
+        <select id="vsVoice"></select>
+      </div>
+      <label>Edge voice (fallback)</label>
+      <select id="edgeVoice"></select>
+      <div class="row">
+        <div><label>Speed</label><input id="speed" type="number" min="0.5" max="2" step="0.05" value="1"></div>
+        <div><label>Language code (VoiceStudio)</label><input id="vLang" placeholder="auto, en, hi…"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Recent videos</h2>
+      <div id="history" class="hint">None yet.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="panel">
+      <div class="scenes-head">
+        <h2 style="margin:0">3 · Scenes <span id="sceneCount"></span></h2>
+        <div class="btns" style="margin:0">
+          <button class="secondary" id="btnAdd">+ Scene</button>
+          <button class="secondary" id="btnDirector" title="Director Mode: clip-by-clip prompts for Kling, Google Flow, Runway or Luma">Director prompts</button>
+          <button class="secondary" id="btnPreview">Quick preview (12 s)</button>
+          <button class="primary" id="btnRender">Render video</button>
+        </div>
+      </div>
+      <div id="audioBanner" class="banner" style="display:none"></div>
+      <div id="titleRow" style="display:none"><label>Title</label><input id="title"></div>
+      <div id="scenes"><div class="empty">Write a script first, or click “+ Scene” to build one by hand.</div></div>
+      <div id="endClipRow" class="banner" style="display:none">
+        <span>🎬 End meme clip: <b id="endClipName">none</b> <span class="muted">(plays after the last scene with its own sound)</span></span>
+        <label class="secondary" style="cursor:pointer;margin:0 6px">Choose video… <input type="file" id="endClipFile" accept="video/*,image/gif" style="display:none"></label>
+        <select id="endClipFit" title="Fit: whole clip over a blurred copy · Fill: crop the middle to fill the screen (for memes with bars)">
+          <option value="fit">Fit (blurred sides)</option><option value="fill">Fill screen (crop)</option></select>
+        <select id="endClipMode" title="After video: the meme plays when the video ends · Merge: it plays faintly over the end of the video">
+          <option value="end">Play after video</option><option value="overlay">Merge over video</option></select>
+        <span id="endClipOpacityBox">Opacity <input type="range" id="endClipOpacity" min="5" max="100" step="5" value="30" style="width:90px;vertical-align:middle"> <span id="endClipOpacityVal">30%</span></span>
+        <span id="endClipVolumeBox">Meme sound <input type="range" id="endClipVolume" min="0" max="100" step="5" value="100" style="width:90px;vertical-align:middle"> <span id="endClipVolumeVal">100%</span></span>
+        <button class="secondary" id="endClipClear">Remove</button>
+      </div>
+    </div>
+
+    <div class="panel" id="directorBox">
+      <div class="scenes-head"><h2 style="margin:0">Director Mode · clip prompts</h2>
+        <div class="btns" style="margin:0"><button class="secondary" id="btnCopyDir">Copy</button><button class="secondary" id="btnSaveDir">Download .md</button><button class="secondary" id="btnCloseDir">Close</button></div></div>
+      <p class="hint">A director's treatment plus one standalone ~10-second prompt per scene, with the style's full character anchor repeated in each. Paste each into Kling, Google Flow (Veo), Runway or Luma, then edit the clips together in CapCut or Premiere.</p>
+      <textarea id="directorText" readonly></textarea>
+    </div>
+
+    <div class="panel">
+      <h2>4 · Video</h2>
+      <div class="bar"><div id="bar"></div></div>
+      <div id="status">Idle.</div>
+      <video id="player" controls playsinline></video>
+      <div class="links" id="links"></div>
+      <pre id="log"></pre>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+let OPT = null, PLAN = null;
+
+function opts(sel, items, value, labelFn) {
+  sel.innerHTML = "";
+  for (const it of items) {
+    const o = document.createElement("option");
+    o.value = typeof it === "string" ? it : it.id;
+    o.textContent = labelFn ? labelFn(it) : (typeof it === "string" ? it : (it.label || it.id));
+    sel.appendChild(o);
+  }
+  if (value !== undefined) sel.value = value;
+}
+
+async function api(path, body) {
+  const r = await fetch(path, body ? {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)} : {});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+
+async function init() {
+  OPT = await api("/api/options");
+  const v = OPT.defaults.video, vc = OPT.defaults.voice;
+  buildStyles(v.style);
+  $("ratio").value = v.ratio || "16:9";
+  $("seconds").value = v.seconds || 45;
+  $("language").value = v.language || "English";
+  $("vBackend").value = vc.backend || "auto";
+  opts($("edgeVoice"), OPT.edge_voices, vc.edge_voice);
+  $("speed").value = vc.speed || 1;
+  $("vLang").value = vc.language || "";
+  const vs = OPT.voicestudio;
+  $("vsDot").classList.toggle("on", vs.running);
+  $("vsText").textContent = vs.running ? "VoiceStudio connected · " + vs.url : "VoiceStudio not running at " + vs.url + " (start the app to use it)";
+  const voices = vs.voices.length ? vs.voices : [{id: vc.voice || "alloy", name: (vc.voice || "alloy") + " (default)"}];
+  opts($("vsVoice"), voices, vc.voice, x => x.name || x.id);
+  loadHistory();
+}
+
+function buildStyles(current) {
+  const sel = $("style"); sel.innerHTML = "";
+  const gal = $("gallery"); gal.innerHTML = "";
+  for (const [g, name] of [["A", "A · Director styles"], ["B", "B · Autopilot styles"], ["C", "C · Cartoon styles"]]) {
+    const og = document.createElement("optgroup"); og.label = name; sel.appendChild(og);
+    const h = document.createElement("h3"); h.textContent = name; gal.appendChild(h);
+    for (const st of OPT.styles.filter(s => s.group === g)) {
+      const o = document.createElement("option"); o.value = st.id; o.textContent = st.label; og.appendChild(o);
+      const c = document.createElement("button"); c.className = "card"; c.dataset.id = st.id; c.title = st.about;
+      c.innerHTML = `<img loading="lazy" alt="" src="/api/style_preview/${st.id}.png"><span>${st.label}</span>`;
+      c.onclick = () => { sel.value = st.id; pickStyle(); };
+      gal.appendChild(c);
+    }
+  }
+  const aliases = {classic: "a1-light", dark: "a1-dark", pop: "a2-tech", story: "a4-cozy", notebook: "b1-notebook", paper: "b2-paper"};
+  sel.value = OPT.styles.some(s => s.id === current) ? current : (aliases[current] || "b1-notebook");
+  sel.onchange = pickStyle; pickStyle();
+}
+function pickStyle() {
+  const id = $("style").value, st = OPT.styles.find(s => s.id === id);
+  document.querySelectorAll(".card").forEach(c => c.classList.toggle("on", c.dataset.id === id));
+  $("styleAbout").textContent = st ? st.about : "";
+  if (PLAN) PLAN.style = id;
+}
+
+$("btnDirector").onclick = async () => {
+  if (!PLAN || !PLAN.scenes.length) { $("status").textContent = "Write or add scenes first."; return; }
+  PLAN.style = $("style").value; PLAN.ratio = $("ratio").value;
+  try {
+    const r = await api("/api/director", {plan: PLAN});
+    $("directorText").value = r.markdown; $("directorBox").style.display = "block";
+    $("directorBox").scrollIntoView({behavior: "smooth"});
+  } catch (e) { $("status").textContent = "Error: " + e.message; }
+};
+$("btnCloseDir").onclick = () => $("directorBox").style.display = "none";
+$("btnCopyDir").onclick = async () => { try { await navigator.clipboard.writeText($("directorText").value); $("btnCopyDir").textContent = "Copied ✓"; setTimeout(() => $("btnCopyDir").textContent = "Copy", 1500); } catch { $("directorText").select(); } };
+$("btnSaveDir").onclick = () => {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([$("directorText").value], {type: "text/markdown"}));
+  a.download = ((PLAN && PLAN.title) || "video").replace(/[^\w\u0900-\u097F-]+/g, "_") + "_director_prompts.md"; a.click();
+};
+
+async function loadHistory() {
+  const h = await api("/api/history").catch(() => []);
+  if (!h.length) return;
+  $("history").innerHTML = "";
+  for (const it of h) {
+    const a = document.createElement("a");
+    a.href = "#"; a.textContent = "▶ " + it.name;
+    a.onclick = async e => {
+      e.preventDefault(); showVideo(it.url);
+      try { PLAN = await (await fetch(it.plan_url)).json(); drawScenes(); } catch {}
+    };
+    $("history").appendChild(a);
+  }
+}
+
+function field(label, el) { const d = document.createElement("div"); const l = document.createElement("label"); l.textContent = label; d.append(l, el); return d; }
+function sel(items, val, onchange) { const s = document.createElement("select"); opts(s, items, val); s.onchange = () => onchange(s.value); return s; }
+function inp(val, onchange, ph) { const i = document.createElement("input"); i.value = val || ""; if (ph) i.placeholder = ph; i.oninput = () => onchange(i.value); return i; }
+
+function showEndClip() {
+  $("endClipRow").style.display = PLAN ? "" : "none";
+  const ec = PLAN && PLAN.end_clip;
+  const p = ec ? (typeof ec === "string" ? ec : ec.path) : "";
+  $("endClipName").textContent = p ? p.split(/[\\/]/).pop().replace(/^[0-9a-f]{8}_/, "") : "none";
+  const o = ec && typeof ec === "object" ? ec : {};
+  const merge = o.mode === "overlay";
+  $("endClipFit").value = o.fit === "fill" ? "fill" : "fit";
+  $("endClipMode").value = merge ? "overlay" : "end";
+  $("endClipOpacity").value = Math.round((o.opacity ?? 0.3) * 100);
+  $("endClipVolume").value = Math.round((o.volume ?? (merge ? 0.3 : 1)) * 100);
+  $("endClipOpacityVal").textContent = $("endClipOpacity").value + "%";
+  $("endClipVolumeVal").textContent = $("endClipVolume").value + "%";
+  ["endClipClear", "endClipFit", "endClipMode", "endClipVolumeBox"].forEach(id => $(id).style.display = p ? "" : "none");
+  $("endClipOpacityBox").style.display = p && merge ? "" : "none";
+}
+function endClipSettings() {
+  return {fit: $("endClipFit").value, mode: $("endClipMode").value, opacity: +$("endClipOpacity").value / 100, volume: +$("endClipVolume").value / 100};
+}
+function updateEndClip() {
+  if (!PLAN || !PLAN.end_clip) return;
+  const path = typeof PLAN.end_clip === "string" ? PLAN.end_clip : PLAN.end_clip.path;
+  PLAN.end_clip = {path, ...endClipSettings()};
+  showEndClip();
+}
+$("endClipMode").onchange = () => { $("endClipVolume").value = $("endClipMode").value === "overlay" ? 30 : 100; updateEndClip(); };
+["endClipFit", "endClipOpacity", "endClipVolume"].forEach(id => $(id).oninput = updateEndClip);
+$("endClipFile").onchange = async e => {
+  const file = e.target.files[0]; if (!file || !PLAN) return;
+  $("endClipName").textContent = "uploading " + file.name + "…";
+  try {
+    const r = await fetch("/api/upload", {method: "POST", headers: {"X-Filename": encodeURIComponent(file.name)}, body: file});
+    const j = await r.json(); if (!r.ok) throw new Error(j.error || r.statusText);
+    PLAN.end_clip = {path: j.path, ...endClipSettings()};
+  } catch (err) { alert("Upload failed: " + err.message); }
+  e.target.value = ""; showEndClip();
+};
+$("endClipClear").onclick = () => { if (PLAN) delete PLAN.end_clip; showEndClip(); };
+
+function drawScenes() {
+  const box = $("scenes");
+  box.innerHTML = "";
+  $("titleRow").style.display = PLAN ? "" : "none";
+  showEndClip();
+  if (!PLAN || !PLAN.scenes.length) { box.innerHTML = '<div class="empty">No scenes yet.</div>'; $("sceneCount").textContent = ""; return; }
+  $("title").value = PLAN.title || ""; $("title").oninput = e => PLAN.title = e.target.value;
+  const ab = $("audioBanner");
+  if (PLAN.audio) {
+    ab.style.display = "flex";
+    ab.innerHTML = `<span>🎤 Uses your recording <b>${PLAN.audio.path.split(/[\\/]/).pop()}</b> (words by ${PLAN.audio.transcript_by || "you"}). Scene times come from the audio; editing the text only changes captions.</span>`;
+    const b = document.createElement("button"); b.className = "secondary"; b.textContent = "Use an AI voice instead";
+    b.onclick = () => { delete PLAN.audio; PLAN.scenes.forEach(s => { delete s.start; delete s.end; delete s.words; }); drawScenes(); };
+    ab.appendChild(b);
+  } else ab.style.display = "none";
+  const words = PLAN.scenes.reduce((n, s) => n + s.narration.split(/\s+/).length, 0);
+  $("sceneCount").textContent = `· ${PLAN.scenes.length} scenes · ~${Math.round(words / 2.6)} s`;
+  PLAN.scenes.forEach((sc, i) => {
+    const card = document.createElement("div"); card.className = "scene";
+    const top = document.createElement("div"); top.className = "scene-top";
+    const tm = sc.start !== undefined && PLAN.audio ? ` <span class="time">${(+sc.start).toFixed(1)}s – ${(+sc.end).toFixed(1)}s</span>` : "";
+    top.innerHTML = `<b>Scene ${i + 1}</b>${tm}<span class="sp"></span>`;
+    const mk = (t, fn) => { const b = document.createElement("button"); b.className = "icon"; b.textContent = t; b.onclick = fn; return b; };
+    top.append(mk("↑", () => move(i, -1)), mk("↓", () => move(i, 1)), mk("✕", () => { PLAN.scenes.splice(i, 1); drawScenes(); }));
+    // Dialogue: one line per speaker as "main: …", "friend: …" or "narrator: …" (each gets its own voice + lip-sync)
+    const ta = document.createElement("textarea");
+    ta.value = sc.lines ? sc.lines.map(l => `${l.who}: ${l.text}`).join("\n") : sc.narration;
+    ta.title = "Dialogue: write one line per speaker, e.g.\nfriend: Bhai, kaha chalna hai?\nmain: Tum batao.";
+    ta.oninput = () => {
+      const rows = ta.value.split("\n").map(r => r.match(/^\s*(main|friend|narrator)\s*:\s*(.+)$/i));
+      if (rows.some(Boolean)) {
+        const old = sc.lines || [];
+        sc.lines = ta.value.split("\n").filter(r => r.trim()).map((r, k) => {
+          const m = r.match(/^\s*(main|friend|narrator)\s*:\s*(.+)$/i);
+          const keep = old[k] && old[k].who === (m ? m[1].toLowerCase() : "main") ? old[k] : {};
+          return {...keep, who: m ? m[1].toLowerCase() : "main", text: (m ? m[2] : r).trim()};
+        });
+        sc.narration = sc.lines.map(l => l.text).join(" ");
+        if (sc.lines.some(l => l.who === "friend") && !sc.friend) sc.friend = {action: "stand", mood: "neutral"};
+      } else { delete sc.lines; sc.narration = ta.value; }
+    };
+    const g = document.createElement("div"); g.className = "grid5";
+    g.append(
+      field("Action", sel(OPT.actions, sc.action, v => sc.action = v)),
+      field("Mood", sel(OPT.moods, sc.mood, v => sc.mood = v)),
+      field("Setting", sel(OPT.settings, sc.setting, v => sc.setting = v)),
+      field("Camera", sel(OPT.cameras, sc.camera, v => sc.camera = v)),
+      field("Enter", sel(["none", "left", "right"], sc.enter || "none", v => sc.enter = v)),
+    );
+    const g2 = document.createElement("div"); g2.className = "row3";
+    const props = inp((sc.props || []).join(", "), v => sc.props = v.split(",").map(x => x.trim()).filter(Boolean), "bulb, clock…");
+    props.setAttribute("list", "propList");
+    g2.append(
+      field("Props (up to 3)", props),
+      field("Headline", inp(sc.headline, v => sc.headline = v, "KEY WORDS")),
+      field("Friend", sel(["none", ...OPT.actions], sc.friend ? sc.friend.action : "none", v => sc.friend = v === "none" ? null : {action: v, mood: "neutral"})),
+    );
+    // per-scene voice: pitch (e.g. -6Hz) and speed for each speaker; empty = the video's default voice
+    const setV = (who, key, val) => {
+      sc.voices = sc.voices || {};
+      const v = sc.voices[who] = sc.voices[who] || {};
+      if (val.trim()) v[key] = key === "speed" ? +val : val.trim(); else delete v[key];
+      if (!Object.keys(v).length) delete sc.voices[who];
+      if (!Object.keys(sc.voices).length) delete sc.voices;
+    };
+    const vv = (who, key) => ((sc.voices || {})[who] || {})[key] ?? "";
+    const g3 = document.createElement("div"); g3.className = "grid5";
+    g3.append(
+      field("Main pitch", inp(vv("main", "pitch"), v => setV("main", "pitch", v), "-6Hz")),
+      field("Main speed", inp(vv("main", "speed"), v => setV("main", "speed", v), "1.0")),
+      field("Friend pitch", inp(vv("friend", "pitch"), v => setV("friend", "pitch", v), "+24Hz")),
+      field("Friend speed", inp(vv("friend", "speed"), v => setV("friend", "speed", v), "1.08")),
+      field("Narrator pitch", inp(vv("narrator", "pitch"), v => setV("narrator", "pitch", v), "+0Hz")),
+    );
+    card.append(top, ta, g, g2, g3);
+    box.appendChild(card);
+  });
+  if (!$("propList")) {
+    const dl = document.createElement("datalist"); dl.id = "propList";
+    OPT.props.forEach(p => { const o = document.createElement("option"); o.value = p; dl.appendChild(o); });
+    document.body.appendChild(dl);
+  }
+}
+function move(i, d) { const j = i + d; if (j < 0 || j >= PLAN.scenes.length) return; [PLAN.scenes[i], PLAN.scenes[j]] = [PLAN.scenes[j], PLAN.scenes[i]]; drawScenes(); }
+
+$("btnAdd").onclick = () => {
+  PLAN = PLAN || {title: "My video", scenes: []};
+  PLAN.scenes.push({narration: "Write what the stickman says here.", action: "talk", mood: "happy", setting: "plain", props: [], headline: "", enter: "none", camera: "zoom_in", friend: null});
+  drawScenes();
+};
+
+let MODE = "prompt", UPLOAD = null;
+function setMode(m) {
+  MODE = m;
+  $("tabPrompt").classList.toggle("on", m === "prompt"); $("tabAudio").classList.toggle("on", m === "audio");
+  $("panePrompt").style.display = m === "prompt" ? "" : "none"; $("paneAudio").style.display = m === "audio" ? "" : "none";
+  $("btnPlan").textContent = m === "audio" ? "Transcribe & make scenes" : "Write script";
+}
+$("tabPrompt").onclick = () => setMode("prompt");
+$("tabAudio").onclick = () => setMode("audio");
+async function upload(file) {
+  if (!file) return;
+  $("planInfo").textContent = "Uploading " + file.name + "…";
+  try {
+    const r = await fetch("/api/upload", {method: "POST", headers: {"X-Filename": encodeURIComponent(file.name)}, body: file});
+    const j = await r.json(); if (!r.ok) throw new Error(j.error || r.statusText);
+    UPLOAD = j; $("audioPrev").src = j.url; $("audioPrev").style.display = "block";
+    $("drop").querySelector("b").textContent = "✓ " + file.name;
+    $("planInfo").textContent = "Uploaded. Now click “Transcribe & make scenes”.";
+  } catch (e) { $("planInfo").textContent = "Upload failed: " + e.message; }
+}
+$("audioFile").onchange = e => upload(e.target.files[0]);
+["dragover", "dragenter"].forEach(ev => $("drop").addEventListener(ev, e => { e.preventDefault(); $("drop").classList.add("over"); }));
+["dragleave", "drop"].forEach(ev => $("drop").addEventListener(ev, e => { e.preventDefault(); $("drop").classList.remove("over"); }));
+$("drop").addEventListener("drop", e => upload(e.dataTransfer.files[0]));
+
+async function planFromAudio() {
+  if (!UPLOAD) { $("planInfo").textContent = "Choose an audio file first."; return; }
+  $("btnPlan").disabled = true;
+  $("planInfo").textContent = $("transcript").value.trim() ? "Timing your words to the audio…" : "Transcribing… (long recordings can take a few minutes)";
+  try {
+    const r = await api("/api/plan_audio", {path: UPLOAD.path, transcript: $("transcript").value, direction: $("direction").value,
+      style: $("style").value, ratio: $("ratio").value, language: $("vLang").value || $("language").value, use_llm: $("use_llm").checked});
+    PLAN = r.plan; drawScenes(); $("planInfo").textContent = (r.log || []).join(" ");
+  } catch (e) { $("planInfo").textContent = "Error: " + e.message; }
+  $("btnPlan").disabled = false;
+}
+
+$("btnPlan").onclick = async () => {
+  if (MODE === "audio") return planFromAudio();
+  const prompt = $("prompt").value.trim();
+  if (!prompt) { $("planInfo").textContent = "Type a prompt first."; return; }
+  $("btnPlan").disabled = true; $("planInfo").textContent = "Writing script… (an AI writer can take up to a minute)";
+  try {
+    const r = await api("/api/plan", {prompt, style: $("style").value, ratio: $("ratio").value, seconds: +$("seconds").value, language: $("language").value, use_llm: $("use_llm").checked});
+    PLAN = r.plan; drawScenes();
+    if (PLAN.style) { $("style").value = PLAN.style; pickStyle(); }
+    $("planInfo").textContent = (r.log || []).join(" ");
+  } catch (e) { $("planInfo").textContent = "Error: " + e.message; }
+  $("btnPlan").disabled = false;
+};
+
+function voiceSettings() {
+  return {backend: $("vBackend").value, voice: $("vsVoice").value, edge_voice: $("edgeVoice").value, speed: +$("speed").value, language: $("vLang").value};
+}
+
+async function render(preview) {
+  if (!PLAN || !PLAN.scenes.length) { $("status").textContent = "Write or add scenes first."; return; }
+  PLAN.style = $("style").value; PLAN.ratio = $("ratio").value;
+  $("btnRender").disabled = $("btnPreview").disabled = true;
+  $("log").textContent = ""; $("links").innerHTML = "";
+  try {
+    const {job} = await api("/api/render", {plan: PLAN, voice: voiceSettings(), preview: preview ? 12 : null});
+    poll(job);
+  } catch (e) { $("status").textContent = "Error: " + e.message; $("btnRender").disabled = $("btnPreview").disabled = false; }
+}
+$("btnRender").onclick = () => render(false);
+$("btnPreview").onclick = () => render(true);
+
+async function poll(id) {
+  const j = await api("/api/job/" + id).catch(() => null);
+  if (!j) return setTimeout(() => poll(id), 1500);
+  $("bar").style.width = (j.progress || 0) + "%";
+  $("status").textContent = j.status === "error" ? "Error: " + j.message : `${j.progress || 0}% · ${j.message || ""}`;
+  $("log").textContent = (j.log || []).join("\n");
+  if (j.status === "running") return setTimeout(() => poll(id), 800);
+  $("btnRender").disabled = $("btnPreview").disabled = false;
+  if (j.status === "done") {
+    const r = j.result;
+    showVideo(r.video_url + "?t=" + Date.now());
+    $("status").textContent = `Done · ${r.duration.toFixed(1)} s · voice: ${r.voice_backends.join(", ")}`;
+    $("links").innerHTML = `<a href="${r.video_url}" download>Download MP4</a><a href="${r.srt_url}" download>Captions (.srt)</a><span class="hint">Saved in ${r.folder}</span>`;
+    loadHistory();
+  }
+}
+function showVideo(url) { const v = $("player"); v.style.display = "block"; v.src = url; v.play().catch(() => {}); }
+
+init().catch(e => { $("vsText").textContent = "Could not load options: " + e.message; });
+</script>
+</body>
+</html>

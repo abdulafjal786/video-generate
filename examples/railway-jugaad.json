@@ -1,0 +1,252 @@
+{
+  "title": "Indian Railway Ka Desi Jugaad",
+  "style": "c1-toon",
+  "ratio": "9:16",
+  "voice": {
+    "backend": "edge"
+  },
+  "voices": {
+    "main": {
+      "edge_voice": "hi-IN-MadhurNeural",
+      "pitch": "+24Hz",
+      "speed": 1.12
+    }
+  },
+  "scenes": [
+    {
+      "layout": "standup",
+      "character": "stick_comic",
+      "backdrop": "curtain",
+      "action": "talk",
+      "mood": "happy",
+      "setting": "stage",
+      "camera": "zoom_in",
+      "props": [],
+      "headline": "Indian Railway का देसी जुगाड़",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "main",
+          "text": "एक बार की बात है भाई साहब...",
+          "action": "wave",
+          "mood": "happy"
+        },
+        {
+          "who": "main",
+          "text": "एक बार हम ट्रेन से घर जा रहे थे!",
+          "action": "talk",
+          "mood": "happy"
+        },
+        {
+          "who": "main",
+          "text": "तभी हमारे दोस्त का फोन आ गया...",
+          "action": "think",
+          "mood": "neutral"
+        },
+        {
+          "who": "main",
+          "text": "और उधर हमको लेट्रिन भी जोर से लगा था!",
+          "action": "surprised",
+          "mood": "worried",
+          "pitch": "+28Hz",
+          "crowd": true
+        }
+      ],
+      "mic": "boom"
+    },
+    {
+      "layout": "standup",
+      "character": "stick_comic",
+      "backdrop": "curtain",
+      "action": "talk",
+      "mood": "happy",
+      "setting": "stage",
+      "camera": "static",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "main",
+          "text": "अब दोस्त भी ऐसा कि फोन काटने का नामे नहीं ले रहा था!",
+          "action": "shrug",
+          "mood": "worried"
+        },
+        {
+          "who": "main",
+          "text": "हम बोले... अरे भाई, बात भी कर लेते हैं और काम भी निपटा लेते हैं!",
+          "action": "wave",
+          "mood": "happy"
+        },
+        {
+          "who": "main",
+          "text": "फिर क्या... फोन कान पर लगाए-लगाए टॉयलेट में घुस गए और बैठ गए!",
+          "action": "laugh",
+          "mood": "laugh",
+          "crowd": true
+        }
+      ],
+      "mic": "boom"
+    },
+    {
+      "layout": "standup",
+      "character": "stick_comic",
+      "backdrop": "curtain",
+      "action": "talk",
+      "mood": "happy",
+      "setting": "stage",
+      "camera": "punch",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "main",
+          "text": "अब काम खत्म हुआ तो नल चालू किए...",
+          "action": "think",
+          "mood": "neutral"
+        },
+        {
+          "who": "main",
+          "text": "लेकिन पानी गायब!",
+          "action": "surprised",
+          "mood": "surprised",
+          "pitch": "+30Hz",
+          "gain": 1.3,
+          "pause": 0.7
+        },
+        {
+          "who": "main",
+          "text": "हम बोले... अरे बाप रे! ई का हो गया?",
+          "action": "surprised",
+          "mood": "worried",
+          "pitch": "+30Hz",
+          "crowd": true
+        }
+      ],
+      "mic": "boom"
+    },
+    {
+      "layout": "standup",
+      "character": "stick_comic",
+      "backdrop": "curtain",
+      "action": "talk",
+      "mood": "happy",
+      "setting": "stage",
+      "camera": "static",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "main",
+          "text": "फिर उठकर बेसिन वाला नल चालू किए...",
+          "action": "think",
+          "mood": "neutral"
+        },
+        {
+          "who": "main",
+          "text": "तो वहां पानी आ रहा था!",
+          "action": "talk",
+          "mood": "happy"
+        },
+        {
+          "who": "main",
+          "text": "अब भाई साहब, इंडियन रेलवे में मग्गा भी रस्सी से बांधकर रखते हैं...",
+          "action": "shrug",
+          "mood": "neutral"
+        },
+        {
+          "who": "main",
+          "text": "हम सोचे... मग्गा तो खुल नहीं रहा है...",
+          "action": "think",
+          "mood": "worried"
+        },
+        {
+          "who": "main",
+          "text": "अब का करीं?",
+          "action": "shrug",
+          "mood": "worried",
+          "pitch": "+28Hz",
+          "pause": 0.5,
+          "crowd": true
+        }
+      ],
+      "mic": "boom"
+    },
+    {
+      "layout": "standup",
+      "character": "stick_comic",
+      "backdrop": "curtain",
+      "action": "talk",
+      "mood": "happy",
+      "setting": "stage",
+      "camera": "zoom_in",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "main",
+          "text": "फिर हम हाथ में पानी लेकर ही धोने लगे!",
+          "action": "talk",
+          "mood": "sad"
+        },
+        {
+          "who": "main",
+          "text": "और मन में बोले...",
+          "action": "think",
+          "mood": "neutral"
+        },
+        {
+          "who": "main",
+          "text": "हे रेलवे भगवान! आज तो हाथे को मग्गा बनाना पड़ गया!",
+          "action": "surprised",
+          "mood": "surprised",
+          "pitch": "+30Hz",
+          "gain": 1.2,
+          "pause": 0.6,
+          "crowd": "clap"
+        },
+        {
+          "who": "main",
+          "text": "ई है अपना इंडियन रेलवे का असली जुगाड़!",
+          "action": "wave",
+          "mood": "happy"
+        }
+      ],
+      "mic": "boom"
+    },
+    {
+      "layout": "standup",
+      "character": "stick_comic",
+      "backdrop": "curtain",
+      "action": "talk",
+      "mood": "happy",
+      "setting": "stage",
+      "camera": "punch",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "main",
+          "text": "ट्रेन में सफर करने के लिए टिकट चाहिए...",
+          "action": "talk",
+          "mood": "happy"
+        },
+        {
+          "who": "main",
+          "text": "लेकिन टॉयलेट में जुगाड़ करने के लिए टैलेंट चाहिए!",
+          "action": "laugh",
+          "mood": "laugh",
+          "pitch": "+26Hz",
+          "gain": 1.2,
+          "pause": 0.8,
+          "crowd": "clap"
+        }
+      ],
+      "mic": "boom"
+    }
+  ]
+}

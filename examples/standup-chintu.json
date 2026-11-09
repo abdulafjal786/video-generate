@@ -1,0 +1,120 @@
+{
+  "title": "Chintu Sharma Standup",
+  "style": "c1-toon",
+  "ratio": "9:16",
+  "voice": {
+    "backend": "edge"
+  },
+  "voices": {
+    "main": {
+      "edge_voice": "hi-IN-MadhurNeural",
+      "pitch": "+30Hz",
+      "speed": 1.05
+    }
+  },
+  "scenes": [
+    {
+      "action": "talk",
+      "mood": "happy",
+      "setting": "stage",
+      "camera": "zoom_in",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "main",
+          "text": "अरे यार, सुन तो…",
+          "mood": "happy",
+          "action": "wave",
+          "speed": 1.15,
+          "gain": 1.2
+        },
+        {
+          "who": "main",
+          "text": "यार, मैंने सोचा आज हल्का खाना खाऊँ…",
+          "mood": "neutral",
+          "action": "think",
+          "pitch": "+24Hz"
+        },
+        {
+          "who": "main",
+          "text": "फिर मेरा दोस्त बोला, बिरयानी खा लेते हैं! और मेरी गांड… मतलब मेरी हिम्मत, फट गई!",
+          "mood": "surprised",
+          "action": "surprised",
+          "pitch": "+45Hz",
+          "speed": 1.1,
+          "gain": 1.2,
+          "pause": 0.6,
+          "crowd": true
+        }
+      ],
+      "layout": "standup",
+      "outfit": {
+        "shirt": [
+          214,
+          158,
+          32
+        ],
+        "pants": [
+          66,
+          108,
+          170
+        ],
+        "shoes": [
+          238,
+          236,
+          228
+        ],
+        "hoodie": true,
+        "ripped": true
+      }
+    },
+    {
+      "action": "shrug",
+      "mood": "happy",
+      "setting": "stage",
+      "camera": "zoom_in",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "main",
+          "text": "अब बताओ, दोस्ती करनी है या डाइटिंग?",
+          "mood": "happy",
+          "action": "shrug"
+        },
+        {
+          "who": "main",
+          "text": "ये होता है हमारे यहाँ!",
+          "mood": "laugh",
+          "action": "laugh",
+          "speed": 1.15,
+          "gain": 1.2,
+          "crowd": true
+        }
+      ],
+      "layout": "standup",
+      "outfit": {
+        "shirt": [
+          214,
+          158,
+          32
+        ],
+        "pants": [
+          66,
+          108,
+          170
+        ],
+        "shoes": [
+          238,
+          236,
+          228
+        ],
+        "hoodie": true,
+        "ripped": true
+      }
+    }
+  ]
+}

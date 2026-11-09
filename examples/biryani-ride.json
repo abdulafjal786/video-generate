@@ -1,0 +1,141 @@
+
+
+{
+  "title": "बिरयानी या स्टार्टर",
+  "style": "c1-toon",
+  "ratio": "9:16",
+  "end_clip": {
+    "path": "memes/boy-drinking-tea-and-laughing-video-meme-download.mp4",
+    "volume": 1.0,
+    "fit": "fill"
+  },
+  "voice": { "backend": "edge" },
+  "voices": {
+    "main":   { "edge_voice": "hi-IN-SwaraNeural",  "pitch": "+50Hz", "speed": 1.1 },
+    "friend": { "edge_voice": "hi-IN-MadhurNeural", "pitch": "+24Hz", "speed": 1.08 }
+  },
+  "scenes": [
+    {
+      "action": "ride",
+      "mood": "happy",
+      "setting": "park",
+      "camera": "zoom_in",
+      "props": [],
+      "headline": "लड़के बाहर जाते हैं तो ऐसा होता है :",
+      "friend": { "action": "nod", "mood": "happy" },
+      "voices": {
+        "main":   { "pitch": "+50Hz", "speed": 1.1 },
+        "friend": { "pitch": "+24Hz", "speed": 1.08 }
+      },
+      "lines": [
+        { "who": "main",   "text": "चलो, कहीं घूम कर आते हैं।", "mood": "happy" },
+        { "who": "friend", "text": "ठीक है, लेकिन कहाँ?",       "mood": "neutral" },
+        { "who": "main",   "text": "चलो, मार्केट चलते हैं।",     "mood": "happy" }
+      ]
+    },
+    {
+      "action": "ride",
+      "mood": "excited",
+      "setting": "city",
+      "camera": "pov_front",
+      "props": ["scooty_girl"],
+      "headline": "सामने देख…",
+      "girl_scooty": {
+        "action": "cross_front",
+        "pov": "main",
+        "direction": "left_to_right",
+        "distance": "near",
+        "speed": "medium",
+        "mood": "neutral",
+        "hair_fly": true,
+        "look_at_camera": false
+      },
+      "friend": { "action": "look_side", "mood": "excited" },
+      "voices": {
+        "main":   { "pitch": "+50Hz", "speed": 1.1 },
+        "friend": { "pitch": "+24Hz", "speed": 1.08 }
+      },
+      "lines": [
+        { "who": "main", "text": "सामने देख, एक लड़की जा रही है स्कूटी से।", "mood": "excited" }
+      ]
+    },
+    {
+      "action": "ride",
+      "mood": "neutral",
+      "setting": "city",
+      "camera": "static",
+      "props": [],
+      "headline": "चलते हैं मार्केट",
+      "friend": { "action": "nod", "mood": "excited" },
+      "voices": {
+        "main":   { "pitch": "+50Hz", "speed": 1.1 },
+        "friend": { "pitch": "+24Hz", "speed": 1.08 }
+      },
+      "lines": [
+        { "who": "friend", "text": "हाँ, चल उसके पीछे चलते हैं।",        "mood": "excited" },
+        { "who": "main",   "text": "ठीक से देख ले पहले।",               "mood": "excited" },
+        { "who": "friend", "text": "बहुत क्यूट लग रही है लेकिन।",        "mood": "excited" },
+        { "who": "main",   "text": "अब बोल।",                          "mood": "excited" },
+        { "who": "friend", "text": "क्या बोलूँ?",                      "mood": "excited" },
+        { "who": "main",   "text": "उसके पीछे चलें क्या?",             "mood": "excited" },
+        { "who": "friend", "text": "नहीं, आगे चल जाने दे उसे।",        "mood": "excited" },
+        { "who": "main",   "text": "हाँ सही है।",                      "mood": "excited" },
+        { "who": "friend", "text": "चल यार, बहुत घूम लिए, थक गए हैं।",  "mood": "excited" }
+      ]
+    },
+    {
+      "action": "ride",
+      "mood": "neutral",
+      "setting": "city",
+      "camera": "static",
+      "props": [],
+      "headline": "कुछ खा लें?",
+      "friend": { "action": "nod", "mood": "neutral" },
+      "voices": {
+        "main":   { "pitch": "+50Hz", "speed": 1.1 },
+        "friend": { "pitch": "+24Hz", "speed": 1.08 }
+      },
+      "lines": [
+        { "who": "main",   "text": "सुन भाई, कुछ खा लें?",  "mood": "happy" },
+        { "who": "friend", "text": "क्या खाना है?",          "mood": "neutral" },
+        { "who": "main",   "text": "कुछ हल्का खाते हैं।",    "mood": "neutral" }
+      ]
+    },
+    {
+      "action": "ride",
+      "mood": "neutral",
+      "setting": "city",
+      "camera": "punch",
+      "props": [],
+      "headline": "बिरयानी या स्टार्टर?",
+      "friend": { "action": "nod", "mood": "happy" },
+      "voices": {
+        "main":   { "pitch": "+54Hz", "speed": 1.12 },
+        "friend": { "pitch": "+26Hz", "speed": 1.12 }
+      },
+      "lines": [
+        { "who": "friend", "text": "यार, भूख भी लगी है। बिरयानी खा लेते हैं!",         "mood": "happy" },
+        { "who": "main",   "text": "नहीं यार, स्टार्टर खाते हैं।",                       "mood": "happy", "speed": 1.05 },
+        { "who": "friend", "text": "नहीं यार, खाना ही है तो बिरयानी ही खा लेते हैं!",   "mood": "angry" }
+      ]
+    },
+    {
+      "action": "ride",
+      "mood": "worried",
+      "setting": "night",
+      "camera": "punch",
+      "props": [],
+      "headline": "असली वजह…",
+      "friend": { "action": "nod", "mood": "neutral" },
+      "voices": {
+        "main":   { "pitch": "+42Hz", "speed": 1.0 },
+        "friend": { "pitch": "+28Hz", "speed": 1.12 }
+      },
+      "lines": [
+        { "who": "main",   "text": "यार, हेवी हो जाता है। फिर मेरा बवासीर ज़ोर कर देता है।", "mood": "worried" },
+        { "who": "friend", "text": "अच्छा! तेरी गांड फट जाती है बिरयानी खाने से!",          "mood": "laugh", "action": "slap" },
+        { "who": "friend", "text": "हा हा हा हा!",                                          "mood": "laugh" }
+      ]
+    }
+  ]
+}

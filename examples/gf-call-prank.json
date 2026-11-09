@@ -1,0 +1,133 @@
+{
+  "title": "GF Call Prank",
+  "style": "c1-toon",
+  "ratio": "9:16",
+  "voice": {
+    "backend": "edge"
+  },
+  "voices": {
+    "friend": {
+      "edge_voice": "hi-IN-SwaraNeural",
+      "pitch": "+10Hz",
+      "speed": 0.96
+    },
+    "main": {
+      "edge_voice": "hi-IN-MadhurNeural",
+      "pitch": "+24Hz",
+      "speed": 1.1
+    },
+    "narrator": {
+      "edge_voice": "hi-IN-MadhurNeural",
+      "pitch": "-6Hz",
+      "speed": 1.08
+    }
+  },
+  "scenes": [
+    {
+      "layout": "trio",
+      "beat": "ring",
+      "action": "sit",
+      "mood": "neutral",
+      "setting": "room",
+      "camera": "static",
+      "props": [],
+      "headline": "गर्लफ्रेंड का कॉल!",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "narrator",
+          "text": "ओये, देख! भाभी का कॉल!"
+        }
+      ],
+      "duration": 3.6
+    },
+    {
+      "layout": "trio",
+      "beat": "grab",
+      "action": "sit",
+      "mood": "neutral",
+      "setting": "room",
+      "camera": "static",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "friend",
+          "text": "हैलो? बाबू?"
+        }
+      ],
+      "duration": 3.0
+    },
+    {
+      "layout": "trio",
+      "beat": "struggle",
+      "action": "sit",
+      "mood": "neutral",
+      "setting": "room",
+      "camera": "static",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "friend",
+          "text": "बाबू, बोलो ना, क्या हुआ?"
+        }
+      ],
+      "duration": 4.0
+    },
+    {
+      "layout": "trio",
+      "beat": "glare",
+      "action": "sit",
+      "mood": "neutral",
+      "setting": "room",
+      "camera": "zoom_in",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "friend",
+          "text": "आई लव यू, सुनो ना..."
+        },
+        {
+          "who": "friend",
+          "text": "बोल क्यों नहीं रहे हो? सुनो ना..."
+        }
+      ]
+    },
+    {
+      "layout": "trio",
+      "beat": "bite",
+      "action": "sit",
+      "mood": "neutral",
+      "setting": "room",
+      "camera": "punch",
+      "props": [],
+      "headline": "",
+      "enter": "none",
+      "lines": [
+        {
+          "who": "friend",
+          "text": "सुनो ना..."
+        },
+        {
+          "who": "main",
+          "text": "आह! काट दिया!",
+          "gain": 1.4,
+          "pitch": "+40Hz",
+          "speed": 1.2,
+          "pause": 0.5
+        },
+        {
+          "who": "narrator",
+          "text": "हा हा हा हा!",
+          "gain": 1.2,
+          "pitch": "+10Hz"
+        }
+      ]
+    }
+  ]
+}

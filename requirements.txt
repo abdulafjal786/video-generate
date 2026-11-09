@@ -1,0 +1,8 @@
+pillow>=10.0
+numpy>=1.24
+requests>=2.28
+imageio-ffmpeg>=0.4.9
+edge-tts>=6.1
+pyttsx3>=2.90
+# optional, for transcribing your own audio offline:
+# faster-whisper>=1.0

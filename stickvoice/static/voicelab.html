@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice Lab</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1d1c1a; --muted: #6d6a63; --line: #e4e1d8;
+    --accent: #e23e48; --ok: #2f9e5b; --radius: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151514; --panel: #1f1e1c; --ink: #f1efe9; --muted: #a29e95; --line: #34322e; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; align-items: baseline; gap: 14px; padding: 18px 24px 8px; flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+  header h1 span { color: var(--accent); }
+  header a { color: var(--muted); }
+  main { max-width: 760px; padding: 10px 24px 40px; }
+  @media (max-width: 600px) { main { padding: 10px 16px 40px; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; }
+  label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin: 12px 0 4px; }
+  label b { color: var(--ink); font-size: 14px; }
+  textarea, select { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+  textarea { resize: vertical; min-height: 76px; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  button { font: inherit; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+  button.main { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; padding: 10px 18px; }
+  button.on { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity: .55; cursor: wait; }
+  .presets { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .presets small { display: block; color: var(--muted); }
+  .presets button { text-align: left; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  audio { width: 100%; margin-top: 12px; }
+  #status { color: var(--muted); min-height: 20px; margin-top: 8px; }
+  #status.err { color: var(--accent); }
+  pre { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; margin: 0 0 8px; overflow-x: auto; }
+  .hint { color: var(--muted); font-size: 12px; margin: 6px 0 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Voice <span>Lab</span></h1>
+  <a href="/">Back to StickVoice Studio</a>
+</header>
+<main>
+  <div class="panel">
+    <h2>Line</h2>
+    <textarea id="text">अगर आपको सोशल मीडिया पोस्ट, इंस्टाग्राम या डिज़ाइन के लिए फैंसी और स्टाइलिश हिंदी फ़ॉन्ट चाहिए,</textarea>
+  </div>
+  <div class="panel">
+    <h2>Presets</h2>
+    <div class="presets" id="presets"></div>
+  </div>
+  <div class="panel">
+    <h2>Your voice</h2>
+    <label for="voice">Voice</label>
+    <select id="voice"></select>
+    <label for="pitch">Pitch <b id="pitchVal"></b></label>
+    <input type="range" id="pitch" min="-100" max="100" step="5" value="0">
+    <p class="hint">Hz is added to the voice's own pitch. Above +100Hz the sound stops changing.</p>
+    <label for="speed">Speed <b id="speedVal"></b></label>
+    <input type="range" id="speed" min="0.5" max="1.5" step="0.05" value="1">
+    <div class="row">
+      <button class="main" id="play">Play voice</button>
+      <button id="all">Play all presets</button>
+    </div>
+    <audio id="player" controls></audio>
+    <div id="status"></div>
+  </div>
+  <div class="panel">
+    <h2>Use it in a video</h2>
+    <pre id="json"></pre>
+    <button id="copy">Copy settings</button>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+let PRESETS = [];
+
+function settings() {
+  const n = +$("pitch").value;
+  return {edge_voice: $("voice").value, pitch: (n >= 0 ? "+" : "") + n + "Hz", speed: +$("speed").value};
+}
+
+function show() {
+  const s = settings();
+  $("pitchVal").textContent = s.pitch;
+  $("speedVal").textContent = s.speed.toFixed(2);
+  $("json").textContent = `"main": ${JSON.stringify(s)}`;
+}
+
+function status(msg, err) {
+  $("status").textContent = msg;
+  $("status").className = err ? "err" : "";
+}
+
+function apply(p) {
+  $("voice").value = p.edge_voice;
+  $("pitch").value = parseInt(p.pitch);
+  $("speed").value = p.speed;
+  show();
+  document.querySelectorAll(".presets button").forEach(b => b.classList.toggle("on", b.textContent.startsWith(p.name)));
+}
+
+async function speak(label) {
+  status(`Making ${label}…`);
+  const r = await fetch("/api/voice_test", {method: "POST", headers: {"Content-Type": "application/json"},
+                                            body: JSON.stringify({...settings(), text: $("text").value})});
+  const data = await r.json();
+  if (data.error) throw new Error(data.error);
+  const player = $("player");
+  player.src = data.url;
+  await player.play();
+  status(`Playing ${label}`);
+  await new Promise(done => { player.onended = player.onpause = done; });
+}
+
+async function run(job) {
+  const buttons = [...document.querySelectorAll("button")];
+  buttons.forEach(b => b.disabled = true);
+  try { await job(); status("Done"); }
+  catch (e) { status(e.message, true); }
+  buttons.forEach(b => b.disabled = false);
+}
+
+async function init() {
+  const opt = await (await fetch("/api/voice_lab")).json();
+  PRESETS = opt.presets;
+  opt.voices.forEach(v => $("voice").add(new Option(v.label, v.id)));
+  PRESETS.forEach(p => {
+    const b = document.createElement("button");
+    b.innerHTML = `${p.name}<small>${p.pitch}, speed ${p.speed}</small>`;
+    b.onclick = () => { apply(p); run(() => speak(p.name)); };
+    $("presets").append(b);
+  });
+  apply(PRESETS[0]);
+}
+
+$("pitch").oninput = $("speed").oninput = $("voice").onchange = show;
+$("play").onclick = () => run(() => speak(`${settings().pitch}`));
+$("all").onclick = () => run(async () => { for (const p of PRESETS) { apply(p); await speak(p.name); } });
+$("copy").onclick = async () => {
+  await navigator.clipboard.writeText($("json").textContent);
+  status("Copied. Paste it under \"voices\" in your plan, and change main to friend if needed.");
+};
+init().catch(e => status(e.message, true));
+</script>
+</body>
+</html>
